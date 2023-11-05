@@ -1,34 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const BotData = ({
-  botName,
-  botHealth,
-  botDamage,
-  botArmor,
-  botCatchPhrase,
-  botAvatar,
-}) => {
+const BotData = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/bots")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+      });
+  }, []);
+
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <div className="max-w-md mb-3 p-2 bg-white border border-gray-200 rounded-lg shadow">
-        <img src={botAvatar} alt="" />
-        <div className="p-5">
-          <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-            {botName}
-          </h2>
-          <p className="mb-3 text-gray-700 text-sm">{botCatchPhrase}</p>
-          <div className="grid grid-cols-3 md:grid-cols-3 gap-4">
-            <div>
-              <p>{botHealth}</p>
-            </div>
-            <div>
-              <p>{botDamage}</p>
-            </div>
-            <div>
-              <p>{botArmor}</p>
+    <div className="container mx-auto">
+      <div className="grid grid-cols-4 gap-4">
+        {data.map((robot) => (
+          <div
+            key={robot.id}
+            className="bg-gray-100 rounded-lg shadow p-4 max-w-sm cursor-pointer"
+          >
+            <img className="w-60" src={robot.avatar_url} alt="" />
+            <h2 className="text-gray-900 text-xl font-bold">{robot.name}</h2>
+            <p className="text-gray-500">{robot.catchphrase}</p>
+            <div className="grid grid-cols-3">
+              <p className="text-gray-500">{robot.health}</p>
+              <p className="text-gray-500">{robot.damage}</p>
+              <p className="text-gray-500">{robot.armor}</p>
             </div>
           </div>
-        </div>
+        ))}
+        <div></div>
       </div>
     </div>
   );
