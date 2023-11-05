@@ -3,9 +3,9 @@ import BotData from "./Components/BotData";
 
 function App() {
   return (
-    <>
+    <div className="container mx-auto">
       <BotData />
-    </>
+    </div>
   );
 }
 
