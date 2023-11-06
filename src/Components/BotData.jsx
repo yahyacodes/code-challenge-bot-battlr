@@ -18,6 +18,11 @@ const BotData = () => {
     }
   };
 
+  const handleDelete = (id) => {
+    const newCard = cards.filter((bot) => bot.id !== id);
+    setCards(newCard);
+  };
+
   return (
     <div>
       <div className="bg-green-100 rounded-lg shadow p-4 min-h-[30em] mt-2">
@@ -26,6 +31,7 @@ const BotData = () => {
             <div
               key={robot.id}
               className="bg-gray-100 rounded-lg shadow p-4 max-w-sm cursor-pointer"
+              onClick={() => handleDelete(robot.id)}
             >
               <img className="w-60" src={robot.avatar_url} alt="" />
               <h2 className="text-gray-900 text-xl font-bold">{robot.name}</h2>
