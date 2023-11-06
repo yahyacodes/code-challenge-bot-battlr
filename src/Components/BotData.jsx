@@ -13,7 +13,9 @@ const BotData = () => {
   }, []);
 
   const handleDuplicate = (data) => {
-    setCards([...cards, data]);
+    if (!cards.includes(data)) {
+      setCards([...cards, data]);
+    }
   };
 
   return (
@@ -24,7 +26,6 @@ const BotData = () => {
             <div
               key={robot.id}
               className="bg-gray-100 rounded-lg shadow p-4 max-w-sm cursor-pointer"
-              onClick={() => handleDuplicate(robot)}
             >
               <img className="w-60" src={robot.avatar_url} alt="" />
               <h2 className="text-gray-900 text-xl font-bold">{robot.name}</h2>
@@ -38,6 +39,7 @@ const BotData = () => {
           ))}
         </div>
       </div>
+
       <div className="grid grid-cols-4 gap-4 mt-2">
         {data.map((robot) => (
           <div
